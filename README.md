@@ -28,5 +28,5 @@ Gere fundos personalizados com apenas uma descrição! Este projeto utiliza **HT
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/nome-do-repo.git
+git clone https://github.com/cassiohnrq/Fundo-magico.git
 cd nome-do-repo
