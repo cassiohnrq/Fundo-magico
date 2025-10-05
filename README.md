@@ -4,11 +4,6 @@ Gere fundos personalizados com apenas uma descrição! Este projeto utiliza **HT
 
 ---
 
-## 🚀 Demonstração
-
-👉 [Veja o projeto rodando](#) *(adicione o link do GitHub Pages ou Vercel aqui)*
-
----
 
 ## ✨ Funcionalidades
 
