@@ -1,0 +1,149 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gerador-fundo",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1e50b1df-5c7d-4f02-b2e0-35f0646795a8",
+      "name": "Webhook",
+      "webhookId": "64623fcc-df5a-4fee-a2e0-23cfd795a6f1"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        576,
+        0
+      ],
+      "id": "c7a4a1d2-74c7-42ae-973d-a44e3b4732e4",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.description }}",
+        "options": {
+          "systemMessage": "🚀 prompt para colocar no n8n @everyone \n\n\n`Gerador de Animações de FUNDO DE PAGINA CSS\nCrie uma animação CSS de FUNDO DE SITE e responda somente com este formato, em json puro\n\n{\n\"code\": \"HTML gerado\",\n\"preview\": \"<div class=\"bg\"></div>\n<div class=\"bg bg2\"></div>\n<div class=\"bg bg3\"></div>\",\n\"style\": \"CSS puro\"\n}\n\nExemplo de fundo animado\n\n{\ncode: \"<div class=\"bg\"></div>\n<div class=\"bg bg2\"></div>\n<div class=\"bg bg3\"></div>\",\n\nstyle:\"html {\n  height:100%;\n}\n\nbody {\n  margin:0;\n}\n\n.bg {\n  animation:slide 3s ease-in-out infinite alternate;\n  background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);\n  bottom:0;\n  left:-50%;\n  opacity:.5;\n  position:fixed;\n  right:-50%;\n  top:0;\n  z-index:-1;\n}\n\n.bg2 {\n  animation-direction:alternate-reverse;\n  animation-duration:4s;\n}\n\n.bg3 {\n  animation-duration:5s;\n}\n\n.content {\n  background-color:rgba(255,255,255,.8);\n  border-radius:.25em;\n  box-shadow:0 0 .25em rgba(0,0,0,.25);\n  box-sizing:border-box;\n  left:50%;\n  padding:10vmin;\n  position:fixed;\n  text-align:center;\n  top:50%;\n  transform:translate(-50%, -50%);\n}\n\nh1 {\n  font-family:monospace;\n}\n\n@keyframes slide {\n  0% {\n    transform:translateX(-25%);\n  }\n  100% {\n    transform:translateX(25%);\n  }\n}\"\n}\n\nREGRAS:\nSem quebras de linha\nUse aspas simples dentro das strings\nAnimações coloridas e impressionantes\nCódigo simples com visual marcante\nse atente pra criar todas os elementos html que você definiu nas classes css e vice versa\nnão retorne nenhuma div ou estilo com loader, ou classe loader\nnão retorne nenhuma propriedade com overflow"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        0
+      ],
+      "id": "59ada929-3123-44a0-988f-b97bbc9ffc0e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        160,
+        208
+      ],
+      "id": "09a9072a-7be8-46a3-8e82-cb92fa8ab147",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "cEkQE3reV7uJRbVE",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst output = $input.first().json.output.replace(\"json\",\"\").replaceAll(\"`\",\"\");\n\nreturn {output};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        0
+      ],
+      "id": "3edf988d-6514-4243-b779-f19131464041",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9a231aba-b5d9-4c58-8cb7-1a4fe5064add",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "382ce05ff2ed74e5f9a73a0e93a88638762cf798e866fbc2aeac4ac4db0b5d4e"
+  },
+  "id": "MGIibWjuQBDOEKhx",
+  "tags": []
+}
