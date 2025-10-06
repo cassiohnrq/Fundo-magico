@@ -2,6 +2,9 @@
 
 Gere fundos personalizados com apenas uma descrição! Este projeto utiliza **HTML**, **CSS**, **JavaScript** e uma automação via **N8N com IA** para criar e aplicar automaticamente códigos de fundo (HTML + CSS) de forma visual e interativa.
 
+Veja no pages: 
+https://cassiohnrq.github.io/Fundo-magico
+
 ---
 
 
