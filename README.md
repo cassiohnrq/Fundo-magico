@@ -32,4 +32,3 @@ https://cassiohnrq.github.io/Fundo-magico
 
 ```bash
 git clone https://github.com/cassiohnrq/Fundo-magico.git
-cd nome-do-repo
